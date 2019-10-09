@@ -29,15 +29,19 @@ public class ReadingThread extends Thread {
 		}
 	}	
 	public void run() {
-		while (!o_line.equals("Over") || !i_line.equals("Over")) { 
+		while (!socket.isClosed()
+						 && (!o_line.equals("Over") || !i_line.equals("Over"))) { 
 			// Data from server	
 			try {
 				//Thread.sleep(4000);
 				i_line = in.readUTF();
-				System.out.println("Got input from Server ...");
-				System.out.println("Printing input: "+ i_line);
+				System.out.println("Client: Got input from Server ...");
+				System.out.println("Client: Printing input: "+ i_line);
 			} catch(Exception i) {
-				System.out.println(i);  
+				System.out.println(i +"in Reading Thread (Just means" + 
+							" connection Closed");
+				System.exit(0);
+				//break;  
 			}
 		}
 			/* close the connection */
@@ -63,20 +67,23 @@ public class SendingThread extends Thread {
 			/* sends output to the socket */
 			out = new DataOutputStream(socket.getOutputStream()); 
 		} catch(IOException i) { 
-			System.out.println(i);
+			System.out.println(i + "in Sending Thread");
  			System.exit(0); 
 		} 
 	}
 	public void run() {
 		/* keep reading until "Over" is input */
-		while (!o_line.equals("Over") || !i_line.equals("Over")) { 
+		while (!socket.isClosed()
+						 && (!o_line.equals("Over") || !i_line.equals("Over"))) { 
 			try { 
 				//Thread.sleep(4000);
 				// Data to send to server
 				o_line = input.readLine(); 
 				out.writeUTF(o_line);
 			} catch(Exception i) { 
-				System.out.println(i); 
+				System.out.println(i);
+				System.exit(0); 
+				//break;
 			} 
 		}
 		/* close the connection */
