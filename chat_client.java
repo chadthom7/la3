@@ -30,19 +30,24 @@ public class ReadingThread extends Thread {
 	}	
 	public void run() {
 		while (!o_line.equals("Over") || !i_line.equals("Over")) { 
-			// Data from server
-			
+			// Data from server	
 			try {
-				Thread.sleep(4000);
+				//Thread.sleep(4000);
 				i_line = in.readUTF();
 				System.out.println("Got input from Server ...");
 				System.out.println("Printing input: "+ i_line);
 			} catch(Exception i) {
 				System.out.println(i);  
-			}// catch (IOException i) {
-			//	System.out.println(i);  
-			//}
+			}
 		}
+			/* close the connection */
+		try {  
+			if(!socket.isClosed())
+				socket.close();
+	    in.close();	
+		} catch(Exception i) {
+			System.out.println(i);  
+		} 
 	}
 }
 
@@ -66,13 +71,22 @@ public class SendingThread extends Thread {
 		/* keep reading until "Over" is input */
 		while (!o_line.equals("Over") || !i_line.equals("Over")) { 
 			try { 
-				Thread.sleep(4000);
+				//Thread.sleep(4000);
 				// Data to send to server
 				o_line = input.readLine(); 
 				out.writeUTF(o_line);
 			} catch(Exception i) { 
 				System.out.println(i); 
 			} 
+		}
+		/* close the connection */
+		try {
+			if(!socket.isClosed())
+				socket.close(); 
+			input.close(); 
+			out.close();     	
+		} catch(Exception i) {
+			System.out.println(i);  
 		} 
 	}
 }
@@ -100,18 +114,7 @@ public chat_client(String address, int port)
 	SendingThread s = new SendingThread();
 	new Thread(r).start();
 	new Thread(s).start();
-
-/* close the connection */
-	try { 
-		input.close(); 
-		out.close(); 
-		socket.close();
-	       	in.close();	
-	} catch(Exception i) {
-		System.out.println(i);  
-	} 
 }
-
 public static void main(String args[]) 
 { 
 	if (args.length < 2) {
