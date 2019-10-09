@@ -36,3 +36,12 @@ git pull --rebase origin master
 		// if only contributer or you've already pulled or rebased
 		// this updates the central master branch to your version
 git push origin master
+
+
+
+
+	When la3 client and la1 server:
+	On client
+java chat_client 192.168.56.101 2999
+	On Server
+java Server 2999
