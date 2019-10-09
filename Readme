@@ -3,6 +3,41 @@ This is the lab3 repo
 Program requires both the Client and Server programs to be running, therefore I'm starting the repo with a copy of lab1 (It has the same structure).
 
 
+chat_server:
+- create data type to store
+	client name, ip, socket, other client's name, ip, sock, free/busy
+	
+- run server
+	
+
+			state 0
+- client_connection()
+	- ask client it's name
+	- read its name and add to table as free
+	- Send "Welcome..."
+
+- wait for new client 
+	- when 2nd client joins run client_connection()
+		
+			state free (1)
+- send list
+- if > 1 free client
+	- promt the free clients to choose another client to chat with
+	- if a client is in state 1, and name recieved is on list and free
+	- promt the client who's name was recieved to Connect w/ them y/n?
+	- if client says y, send to state 2
+
+			state busy (2)
+- send "You are connected to " + name
+- client[0] + ": " + 0_message;
+- client[1] + ": " + 1_message +"\n"; //?
+
+			state 3
+- client[?] + "disconnected"
+- send client to state 1
+
+
+
 
 
 
