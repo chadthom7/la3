@@ -3,3 +3,36 @@ This is the lab3 repo
 Program requires both the Client and Server programs to be running, therefore I'm starting the repo with a copy of lab1 (It has the same structure).
 
 
+
+
+
+													Git commands:
+/*
+	Steps to developing a feature:
+		- edit, stage, and commit
+
+  - committing saves the change to your local repo
+  - commits keep track of the history of all changes
+	- once you want to merge all your commits to the central repo , use push
+			origin master
+*/
+
+	// adds file (stages file) to be committed
+git add file1
+git commit -m "<message here>"
+
+/* make sure the central repo's updates merge with your local repo
+	w/o conflict.
+	rebase adds change ontop of what everyone else has already done
+	merges commits one by one and stops on conflicts
+	can use git status and add to help resolve conflicts
+	git rebase --abort to cancel the whole thing
+*/
+// use rebase to fetch from remote/central and add changes to head in local
+										// add changes or merge or integrate central into local
+
+git pull --rebase origin master
+
+		// if only contributer or you've already pulled or rebased
+		// this updates the central master branch to your version
+git push origin master
