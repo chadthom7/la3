@@ -21,30 +21,28 @@ public class ReadingThread extends Thread {
 	ReadingThread() {
 		try {		
 			in = new DataInputStream(
-					new BufferedInputStream(socket.getInputStream()));
-			//	String i_line = "";	
+					new BufferedInputStream(socket.getInputStream()));	
 		} catch(IOException i) {
 			System.out.println(i);
 			System.exit(0); 
 		}
 	}	
 	public void run() {
-		while (!socket.isClosed()
-						 && (!o_line.equals("Over") || !i_line.equals("Over"))) { 
+		while (!socket.isClosed()) { 
 			// Data from server	
 			try {
 				//Thread.sleep(4000);
 				i_line = in.readUTF();
-				System.out.println("Client: Got input from Server ...");
-				System.out.println("Client: Printing input: "+ i_line);
+				//System.out.println("Client: Got input from Server ...");
+				System.out.println(i_line);
 			} catch(Exception i) {
 				System.out.println(i +"in Reading Thread (Just means" + 
-							" connection Closed");
+							" connection Closed)");
 				System.exit(0);
 				//break;  
 			}
 		}
-			/* close the connection */
+		/* close the connection */
 		try {  
 			if(!socket.isClosed())
 				socket.close();
@@ -60,8 +58,7 @@ public class SendingThread extends Thread {
 		// Data from Server
 	SendingThread() {
 		// Initialize buffer readers and input and output streams
-		try { 
-			
+		try { 	
 			/* takes user input from terminal */
 			input = new BufferedReader(new InputStreamReader(System.in)); 
 			/* sends output to the socket */
@@ -73,8 +70,8 @@ public class SendingThread extends Thread {
 	}
 	public void run() {
 		/* keep reading until "Over" is input */
-		while (!socket.isClosed()
-						 && (!o_line.equals("Over") || !i_line.equals("Over"))) { 
+		while (!socket.isClosed()) {
+						 //&& (!o_line.equals("Over") || !i_line.equals("Over"))) { 
 			try { 
 				//Thread.sleep(4000);
 				// Data to send to server
@@ -82,8 +79,7 @@ public class SendingThread extends Thread {
 				out.writeUTF(o_line);
 			} catch(Exception i) { 
 				System.out.println(i);
-				System.exit(0); 
-				//break;
+				System.exit(0);
 			} 
 		}
 		/* close the connection */
@@ -107,16 +103,10 @@ public chat_client(String address, int port)
 		System.out.println("Error in IP or port");
 		System.exit(0);
   }
-	System.out.println("Connected"); // Connected
-	/* string to read message from input */
-	//String o_line = ""; 
-
-
-
-
+	// System.out.println("Connected"); // Connected
+	
 // ------------------- Receive Data ----------------------
 // ------------------- Send Data -------------------------
-
 	ReadingThread r = new ReadingThread();
 	SendingThread s = new SendingThread();
 	new Thread(r).start();
