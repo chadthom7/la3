@@ -1,4 +1,7 @@
 /* A Java program that represents a client object */
+import java.net.*;
+import java.io.*;
+import java.util.*;
 
 public class Client implements Runnable{
 	String name = "";
@@ -11,9 +14,9 @@ public class Client implements Runnable{
 	public Client(String name, Socket socket, DataInputStream in, DataOutputStream out) {
 		this.name = name;
 		this.isBusy = true;
-		this.Socket = socket;
-		this.DataInputStream = in;
-		this.DataOutputStream = out;
+		this.socket = socket;
+		this.in = in;
+		this.out = out;
 	}
 
 	public String busy() {
@@ -31,9 +34,9 @@ public class Client implements Runnable{
 
 			out.writeUTF("List of clients and states");
 			String list = "";
-			for(Client c : clientList)
+			for(Client c : chat_server.clientList)
 				list += c.name + " " + c.busy();
-			for(Client c : clientList) {
+			for(Client c : chat_server.clientList) {
 				if (!c.isBusy)
 					out.writeUTF(list);
 			}
