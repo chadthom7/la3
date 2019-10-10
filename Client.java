@@ -66,7 +66,12 @@ public class Client implements Runnable {
 				// PROMPT connect to which client
 				out.writeUTF("Connect to which client?");
 				// Wait for response
-				this.partner_name = in.readUTF(); 
+				try {
+					this.partner_name = in.readUTF();
+				} catch(IOException i) {
+					this.in =  new DataInputStream(new BufferedInputStream(this.socket.getInputStream()));
+				}
+				 
 				// ^ Need to figure out how to skip this if someone types your name
 				if(this.partner_name != "") {
 					// Set partner from list	
@@ -79,7 +84,7 @@ public class Client implements Runnable {
 					}
 					// Close and reopen partners input buffer so stop waiting for name
 					chat_server.clientList.get(this.partner).in.close();
-					chat_server.clientList.get(this.partner).in = new DataInputStream(new BufferedInputStream(chat_server.clientList.get(this.partner).socket.getInputStream()));				
+					//chat_server.clientList.get(this.partner).in = new DataInputStream(new BufferedInputStream(chat_server.clientList.get(this.partner).socket.getInputStream()));				
 				}
 				// You typed a partner name
 				if(this.partner_name != "") {
