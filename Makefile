@@ -1,6 +1,6 @@
 # Makefile for JAVA network programs
 
-default: chat_server.class chat_client.class
+default: Client.class chat_server.class chat_client.class
 
 # Server
 chat_server.class: chat_server.java

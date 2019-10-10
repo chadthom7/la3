@@ -48,7 +48,7 @@ public chat_server(int port)
 			Thread t = new Thread(newClient);
 
 			clientList.add(newClient);
-
+			t.start();
 			
 		
 			
