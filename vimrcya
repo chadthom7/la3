@@ -1,0 +1,23 @@
+
+
+"Quotation mark is comment
+"
+set tabstop=2
+set shiftwidth=2
+"set expandtab
+set softtabstop=0
+set noexpandtab
+set smarttab
+retab
+set mouse=a
+
+set wildmode=list:longest,full
+
+"No othe files will overide this vimrc
+set nomodeline
+
+"Cursor won't move as much when scrolling
+noremap <Ins> 2<C-Y>
+noremap <Del> 2<C-E>
+
+syntax on
