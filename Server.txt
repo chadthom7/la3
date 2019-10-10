@@ -1,0 +1,70 @@
+ArrayList<Client> clientList = new ArrayList<Client>();
+
+Server Class {
+While(TRUE) {
+socket = server.accept();
+
+
+dis
+dos
+
+promt name (" What's ur name?") // dos
+name = readUTF(); // dis
+c = new Client(name, dis, dos)
+c.start();
+clientList.add(c);
+}
+
+
+
+
+
+Inside Client Object
+Client {\
+	dis;
+	dos;
+	input buffer;
+	output buffer;
+	String partner_name = ""; 
+	int partner;
+		
+
+
+
+_______________________________________________________________________________
+			run() {
+while(True) {
+
+if(clientList.size() >1 )
+	To Client(List)
+else { 
+	while(clientList.size() < 2)
+		wait
+To Client(List)
+
+// Request name
+To Client(Promt for name)
+
+//wait for input
+partner name = input;
+for(int i = 0; i < clientList.size(); i++)
+	if(clientList.get(i).name.equals(requested)) {
+		this.partner = i;
+		this.partner_name = requested 
+		this.dos = clientList.get(i).dos;
+
+
+while(True)
+	String to_partner = dis.readUTF();
+	clientList.get(i).dos.writeUTF(this.name + ": " + to_partner); 
+
+
+ 
+	this.dis writeUTF();
+
+}
+}
+}
+
+
+
