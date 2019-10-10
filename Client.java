@@ -3,12 +3,14 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class Client implements Runnable{
+public class Client implements Runnable {
 	String name = "";
 	boolean isBusy;
 	Socket socket;
 	DataInputStream in;
 	DataOutputStream out;
+	String partner_name = "";
+	int partner;
 
 	//Constructor
 	public Client(String name, Socket socket, DataInputStream in, DataOutputStream out) {
@@ -31,31 +33,57 @@ public class Client implements Runnable{
 	public void run() {
 		while (true) {
 			try {
+				out.writeUTF("List of clients and states");
+				String list = "";
+				for(Client c : chat_server.clientList)
+					list += c.name + " " + c.busy();
+				for(Client c : chat_server.clientList) {
+					if (!c.isBusy)
+						c.out.writeUTF(list);
+				}
 
-			out.writeUTF("List of clients and states");
-			String list = "";
-			for(Client c : chat_server.clientList)
-				list += c.name + " " + c.busy();
-			for(Client c : chat_server.clientList) {
-				if (!c.isBusy)
-					out.writeUTF(list);
+			
+				out.writeUTF("Connect to which client?");
+				this.partner_name = in.readUTF();
+			} catch(IOException i) {
+				System.out.println(i);
+			}	
+		
+			for(int i = 0; i < chat_server.clientList.size(); i++) {
+				if(chat_server.clientList.get(i).name.equals(partner_name)) {
+					this.partner = i;
+					//this.partner_name = partner_name; 
+					//this.out = clientList.get(i).dos;
+				}
 			}
+		
+		
+			while(true) {
+				try {
+					String message = this.in.readUTF();
+					chat_server.clientList.get(this.partner).out.writeUTF(this.name + ": " + message); 
+				} catch (IOException i) {
+						
+				}
+				try {
+					this.out.writeUTF(chat_server.clientList.get(this.partner).name + " disconnected");
+				} catch (IOException i) {
+						
+				}			
 
-
-
-
+//chat_server.clientList.get(i).out.writeUTF("");
+				// this.dis writeUTF();
+			}
+			/*	
+			try {
+				this.in.close();
+				this.out.close();
 			} catch(IOException i) {
 				System.out.println(i);
 			}
-		}
-		try {
-			this.in.close();
-			this.out.close();
-		} catch(IOException i) {
-			System.out.println(i);
-		}
+			*/
 	}
-
+}
 /*
 	public String getClientName() {
 		return this.name;
