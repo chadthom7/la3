@@ -1,82 +1,10 @@
-This is the lab3 repo
+CSCE611-Lab 3
+Created by Carter Venable and Chad Thomas
 
-Program requires both the Client and Server programs to be running, therefore I'm starting the repo with a copy of lab1 (It has the same structure).
+Chad:
+	Planned, Structured, and help convert normal TCP chat client into a multi
+threaded chat_client. Helped integrate chat_client with chat_server. Worked on planning structure for chat_server and implementing plan/ debugging.
 
+Carter:
+	Planned and helped with designing flow of chat_server and integrated Client.java into chat_server. Ran Wireshark tests and determined meaning of TCP packets.
 
-chat_server:
-- create data type to store
-	client name, ip, socket, other client's name, ip, sock, free/busy
-	
-- run server
-	
-
-			state 0
-- client_connection()
-	- ask client it's name
-	- read its name and add to table as free
-	- Send "Welcome..."
-
-- wait for new client 
-	- when 2nd client joins run client_connection()
-		
-			state free (1)
-- send list
-- if > 1 free client
-	- promt the free clients to choose another client to chat with
-	- if a client is in state 1, and name recieved is on list and free
-	- promt the client who's name was recieved to Connect w/ them y/n?
-	- if client says y, send to state 2
-
-			state busy (2)
-- send "You are connected to " + name
-- client[0] + ": " + 0_message;
-- client[1] + ": " + 1_message +"\n"; //?
-
-			state 3
-- client[?] + "disconnected"
-- send client to state 1
-
-
-
-
-
-
-													Git commands:
-/*
-	Steps to developing a feature:
-		- edit, stage, and commit
-
-  - committing saves the change to your local repo
-  - commits keep track of the history of all changes
-	- once you want to merge all your commits to the central repo , use push
-			origin master
-*/
-
-	// adds file (stages file) to be committed
-git add file1
-git commit -m "<message here>"
-
-/* make sure the central repo's updates merge with your local repo
-	w/o conflict.
-	rebase adds change ontop of what everyone else has already done
-	merges commits one by one and stops on conflicts
-	can use git status and add to help resolve conflicts
-	git rebase --abort to cancel the whole thing
-*/
-// use rebase to fetch from remote/central and add changes to head in local
-										// add changes or merge or integrate central into local
-
-git pull --rebase origin master
-
-		// if only contributer or you've already pulled or rebased
-		// this updates the central master branch to your version
-git push origin master
-
-
-
-
-	When la3 client and la1 server:
-	On client
-java chat_client 192.168.56.101 2999
-	On Server
-java Server 2999
