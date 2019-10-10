@@ -1,26 +1,59 @@
 /* A Java program that represents a client object */
 
-public class Client {
-	private String name = "";
-	private boolean isBusy;
-	private int portNum = null;
-	private String ip = "";
+public class Client implements Runnable{
+	String name = "";
+	boolean isBusy;
+	Socket socket;
+	DataInputStream in;
+	DataOutputStream out;
 
-	//Constructor with name
-	public Client(int portNum, String ip) {
-		this.name = "";
-		this.isBusy = false;
-		this.portNum = portNum;
-		this.ip = ip;
-	}
-
-	public Client(String name, int portNum, String ip) {
+	//Constructor
+	public Client(String name, Socket socket, DataInputStream in, DataOutputStream out) {
 		this.name = name;
-		this.portNum = portNum;
-		this.ip = ip;
 		this.isBusy = true;
+		this.Socket = socket;
+		this.DataInputStream = in;
+		this.DataOutputStream = out;
 	}
 
+	public String busy() {
+		if (isBusy) {
+			return "busy";
+		}
+		else {
+			return "free";
+		}
+	}
+
+	public void run() {
+		while (true) {
+			try {
+
+			out.writeUTF("List of clients and states");
+			String list = "";
+			for(Client c : clientList)
+				list += c.name + " " + c.busy();
+			for(Client c : clientList) {
+				if (!c.isBusy)
+					out.writeUTF(list);
+			}
+
+
+
+
+			} catch(IOException i) {
+				System.out.println(i);
+			}
+		}
+		try {
+			this.in.close();
+			this.out.close();
+		} catch(IOException i) {
+			System.out.println(i);
+		}
+	}
+
+/*
 	public String getClientName() {
 		return this.name;
 	}
@@ -40,4 +73,5 @@ public class Client {
 	public void setClientState(boolean isBusy) {
 		this.isBusy = isBusy;
 	}
+	*/
 }
