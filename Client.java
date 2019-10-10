@@ -92,7 +92,7 @@ public class Client implements Runnable {
 						}
 					}
 					// Close and reopen partners input buffer so stop waiting for name
-					chat_server.clientList.get(this.partner).in.close();
+					//chat_server.clientList.get(this.partner).in.close();
 					//chat_server.clientList.get(this.partner).in = new DataInputStream(new BufferedInputStream(chat_server.clientList.get(this.partner).socket.getInputStream()));				
 				}
 				// You typed a partner name
