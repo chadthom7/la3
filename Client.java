@@ -31,9 +31,12 @@ public class Client implements Runnable {
 	}
 
 	public void run() {
+		System.out.println("Thread is running");	
 		while (true) {
 			try {
 				out.writeUTF("List of clients and states");
+			
+				System.out.println("past .write");	
 				String list = "";
 				for(Client c : chat_server.clientList)
 					list += c.name + " " + c.busy();
@@ -41,7 +44,10 @@ public class Client implements Runnable {
 					if (!c.isBusy)
 						c.out.writeUTF(list);
 				}
+				
 
+				
+				System.out.println("past print list");	
 			
 				out.writeUTF("Connect to which client?");
 				this.partner_name = in.readUTF();
