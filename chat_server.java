@@ -13,8 +13,8 @@ public class chat_server
 private Socket socket = null; 
 private ServerSocket server = null;
 private DataInputStream in = null;
-private DataOutputStream out = null; 
-public ArrayList<Client> clientList = new ArrayList<Client>();
+private DataOutputStream out = null;
+public static ArrayList<Client> clientList = new ArrayList<Client>();
 
 /* constructor with port */
 public chat_server(int port) 
