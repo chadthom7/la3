@@ -114,7 +114,9 @@ public class Client implements Runnable {
 						
 			} catch(IOException i) {
 				System.out.println(i);
-			} 
+			} catch(InterruptedException i) {
+				System.out.println(i);
+			}
 			/*
 			// If someone Request you
 			for(Client c : chat_server.clientList) {
@@ -138,7 +140,11 @@ public class Client implements Runnable {
 					String message = this.in.readUTF();
 					chat_server.clientList.get(this.partner).out.writeUTF(this.name + ": " + message); 
 				} catch (IOException i) {
+					try {
 						this.out.writeUTF(chat_server.clientList.get(this.partner).name + " disconnected");
+					} catch(IOException e) {
+						System.out.println(e);
+					}
 					this.partner = -1;
 					this.partner_name = "";
 					this.isBusy = false;
