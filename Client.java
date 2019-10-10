@@ -40,7 +40,7 @@ public class Client implements Runnable {
 				String list = "";
 				
 				for(Client c : chat_server.clientList)
-					list += c.name + " " + c.busy();
+					list += c.name + " " + c.busy() + "\n";
 				for(Client c : chat_server.clientList) {
 					if (!c.isBusy)
 						c.out.writeUTF(list);
@@ -67,8 +67,12 @@ public class Client implements Runnable {
 				this.partner_name = in.readUTF();
 			} catch(IOException i) {
 				System.out.println(i);
-			}	
-		
+			}
+			// Send Confirmation message
+			System.out.println("You chose " + this.partner_name);
+			
+	
+			
 			for(int i = 0; i < chat_server.clientList.size(); i++) {
 				if(chat_server.clientList.get(i).name.equals(partner_name)) {
 					this.partner = i;
@@ -76,9 +80,15 @@ public class Client implements Runnable {
 					//this.out = clientList.get(i).dos;
 				}
 			}
-		
+			try {	
+				chat_server.clientList.get(this.partner).out.writeUTF(this.partner_name);
+			} catch (IOException i) {
+						
+			}
+
 		
 			while(true) {
+				
 				try {
 					String message = this.in.readUTF();
 					chat_server.clientList.get(this.partner).out.writeUTF(this.name + ": " + message); 
