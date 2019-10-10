@@ -66,11 +66,20 @@ public class Client implements Runnable {
 				// PROMPT connect to which client
 				out.writeUTF("Connect to which client?");
 				// Wait for response
-				try {
-					this.partner_name = in.readUTF();
-				} catch(IOException i) {
-					this.in =  new DataInputStream(new BufferedInputStream(this.socket.getInputStream()));
+				//try {
+				String input ="";
+				input  = this.in.readUTF();
+				
+				//this.partner_name = in.readUTF();
+				if (input.equals("") || input.equals("y") || input.equals("n")){
+					yn = input;
+				} else {
+					this.partner_name = input;
 				}
+				
+				//} catch(IOException i) {
+					//this.in =  new DataInputStream(new BufferedInputStream(this.socket.getInputStream()));
+				//}
 				 
 				// ^ Need to figure out how to skip this if someone types your name
 				if(this.partner_name != "") {
@@ -91,12 +100,12 @@ public class Client implements Runnable {
 					yn = "y";
 					chat_server.clientList.get(this.partner).out.writeUTF("Recieved request from " + this.name + "\nConnect?");
 					chat_server.clientList.get(this.partner).partner_name = this.name;
-				}	else { // Someone typed your name
-					Thread.sleep(50);	
-					yn = this.in.readUTF();
+				}	//else { // Someone typed your name
+					//Thread.sleep(50);	
+					// yn = this.in.readUTF();
 					//if (yn == "y")
 						
-				}
+				//}
 				if (yn != "y") {
 					break;
 				}
@@ -119,9 +128,9 @@ public class Client implements Runnable {
 						
 			} catch(IOException i) {
 				System.out.println(i);
-			} catch(InterruptedException i) {
+			}/* catch(InterruptedException i) {
 				System.out.println(i);
-			}
+			}*/
 			/*
 			// If someone Request you
 			for(Client c : chat_server.clientList) {
