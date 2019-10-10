@@ -31,12 +31,9 @@ public class Client implements Runnable {
 	}
 
 	public void run() {
-		System.out.println("Thread is running");	
 		while (true) {
 			try {
 				out.writeUTF("List of clients and states");
-			
-				//System.out.println("past .write");	
 				String list = "";
 				
 				for(Client c : chat_server.clientList)
@@ -45,17 +42,12 @@ public class Client implements Runnable {
 					if (!c.isBusy)
 						c.out.writeUTF(list);
 				}
-
-				//System.out.println("past print list");	
 				String yn = "";
 				// PROMPT connect to which client
 				out.writeUTF("Connect to which client?");
 				// Wait for response
-				//try {
 				String input ="";
 				input  = this.in.readUTF();
-				System.out.println(this.name + "--------- " + input);
-				//this.partner_name = in.readUTF();
 				if (input.equals("") || input.equals("y") || input.equals("n")){
 					yn = input;
 				} else {
@@ -64,8 +56,6 @@ public class Client implements Runnable {
 					for(int i = 0; i < chat_server.clientList.size(); i++) {
 						if(chat_server.clientList.get(i).name.equals(partner_name)) {
 							this.partner = i;
-						//this.partner_name = partner_name; 
-						//this.out = clientList.get(i).dos;
 						}
 					}
 					// You typed a partner name
@@ -74,21 +64,7 @@ public class Client implements Runnable {
 					chat_server.clientList.get(this.partner).out.writeUTF("Recieved request from " + this.name + "\nConnect?");
 					// Have potential partner save your name
 					chat_server.clientList.get(this.partner).partner_name = this.name;
-					/*
-					for(int i = 0; i < chat_server.clientList.size(); i++) {
-						if(chat_server.clientList.get(i).partner_name.equals(this.name)) {
-						chat_server.clientList.get(this.partner).partner = i;
-						//this.partner_name = partner_name; 
-						//this.out = clientList.get(i).dos;
-						}
-					}	
-					*/
-					//else { // Someone typed your name
-					//Thread.sleep(50);	
-					// yn = this.in.readUTF();
-					//if (yn == "y")
 				}
-				//if(this.partner == -1)
 
 				if(this.partner == -1) {
  					for(int i = 0; i < chat_server.clientList.size(); i++) {
@@ -97,26 +73,6 @@ public class Client implements Runnable {
 						}
 					}
 				}
-
-
-
-
-				System.out.println(this.partner + "--------- " + this.partner_name);	
-				/*}
-				if (yn != "y" && input!= "y") {
-				 System.out.println("--------- ?????????????");
-					//break;
-				}*/
-				System.out.println(this.partner + "--------- " + this.partner_name);
-				/*
-				if(this.partner == -1) {
- 					for(int i = 0; i < chat_server.clientList.size(); i++) {
-						if(chat_server.clientList.get(i).name.equals(this.partner_name)) {
-							this.partner = i;
-						}
-					}
-				}
-				*/
 				
 				// Send Confirmation message	
 				this.out.writeUTF("You are connected to " + this.partner_name);
@@ -127,14 +83,10 @@ public class Client implements Runnable {
 						
 			} catch(IOException i) {
 				System.out.println(i);
-			}/* catch(InterruptedException i) {
-				System.out.println(i);
-			}*/
-
+			}
 
 			// CONVERSATION:	
 			while(true)	{
-			  System.out.println(this.partner + "--------- " + this.partner_name);
 				try {
 					String message = this.in.readUTF();
 					chat_server.clientList.get(this.partner).out.writeUTF(this.name + ": " + message); 

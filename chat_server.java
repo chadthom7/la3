@@ -53,9 +53,9 @@ public chat_server(int port)
 		
 			
 		} catch(EOFException i) { 
-	    	System.out.println(i + "Server's sockettttt"); 
+	    	System.out.println(i + "Server's socket"); 
 		} catch(Exception i) { 
-	    	System.out.println(i + "Server's sockettttt"); 
+	    	System.out.println(i + "Server's socket"); 
 		}
 	}
 	/* close connection 
