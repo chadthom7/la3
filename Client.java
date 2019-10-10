@@ -15,7 +15,7 @@ public class Client implements Runnable {
 	//Constructor
 	public Client(String name, Socket socket, DataInputStream in, DataOutputStream out) {
 		this.name = name;
-		this.isBusy = true;
+		this.isBusy = false;
 		this.socket = socket;
 		this.in = in;
 		this.out = out;
@@ -38,6 +38,7 @@ public class Client implements Runnable {
 			
 				System.out.println("past .write");	
 				String list = "";
+				
 				for(Client c : chat_server.clientList)
 					list += c.name + " " + c.busy();
 				for(Client c : chat_server.clientList) {
@@ -45,6 +46,19 @@ public class Client implements Runnable {
 						c.out.writeUTF(list);
 				}
 				
+				/*
+				for(int i = 0; i < chat_server.clientList.size(); i++) {
+					list += chat_server.clientList.get(i).name + " " + 
+						chat_server.clientList.get(i).isBusy() + "\n"; 
+					//this.partner = i;
+					//this.partner_name = partner_name; 
+					//this.out = clientList.get(i).dos;
+				
+				}
+				for(int i = 0; i < chat_server.clientList.size(); i++) {
+					if(!chat_server.clientList.get(i).busy()) {
+							chat_server.clientList.get(i).busy() 
+				*/
 
 				
 				System.out.println("past print list");	
